@@ -23,15 +23,6 @@
       overflow-y:auto;
     }
 
-    /* Fade-in */
-    .fade {
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-    .fade.show {
-      opacity: 1;
-    }
-
     .login-container{
       display:flex;
       flex-direction:column;
@@ -195,7 +186,7 @@
   <!-- Som de click local -->
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
-  <div class="login-container fade" id="loginPage">
+  <div class="login-container" id="loginPage">
     <div class="login-box">
       <h2>Bem-vinda, Sarinha 💜</h2>
       <input type="email" id="email" placeholder="E-mail">
@@ -205,7 +196,7 @@
     </div>
   </div>
 
-  <div class="container fade" id="mainPage">
+  <div class="container" id="mainPage">
     <header>
       <div class="avatar">S♡</div>
       <div>
@@ -278,6 +269,7 @@
     const EMAIL = "sarinha@gmail.com";
     const PASSWORD = "19102008";
 
+    // Som de click local
     const clickSound = document.getElementById("clickSound");
     let soundEnabled = false;
     document.addEventListener("click", () => { soundEnabled = true; }, { once: true });
@@ -296,11 +288,8 @@
       const error=document.getElementById("errorMsg");
       if(email===EMAIL && pass===PASSWORD){
         error.textContent="";
-        const loginPage = document.getElementById("loginPage");
-        const mainPage = document.getElementById("mainPage");
-        loginPage.style.display="none";
-        mainPage.style.display="block";
-        mainPage.classList.add("show");
+        document.getElementById("loginPage").style.display="none";
+        document.getElementById("mainPage").style.display="block";
         sessionStorage.setItem("logged","true");
       } else {
         error.textContent="E-mail ou senha incorretos 💔";
@@ -310,35 +299,26 @@
     function logout(){
       playClick();
       sessionStorage.removeItem("logged");
-      const loginPage = document.getElementById("loginPage");
-      const mainPage = document.getElementById("mainPage");
-      mainPage.style.display="none";
-      loginPage.style.display="flex";
-      loginPage.classList.add("show");
+      document.getElementById("mainPage").style.display="none";
+      document.getElementById("loginPage").style.display="flex";
     }
 
-    window.onload = () => {
-      const loginPage = document.getElementById("loginPage");
-      const mainPage = document.getElementById("mainPage");
-      if(sessionStorage.getItem("logged") === "true") {
-        loginPage.style.display = "none";
-        mainPage.style.display = "block";
-        mainPage.classList.add("show");
-      } else {
-        loginPage.style.display = "flex";
-        loginPage.classList.add("show");
+    window.onload=()=>{
+      if(sessionStorage.getItem("logged")==="true"){
+        document.getElementById("loginPage").style.display="none";
+        document.getElementById("mainPage").style.display="block";
       }
-    };
+    }
 
     const videos=[
       "https://www.youtube.com/embed/slBo50Wh_I8",
       "https://www.youtube.com/embed/xWrGRdSqBRE",
       "https://www.youtube.com/embed/A8G0etDXj4M",
       "https://www.youtube.com/embed/2MwMiUOdO8I",
-      "https://www.youtube.com/embed/Xr7kkxNMKpw",
+      "https://www;youtube.com/embed/Xr7kkxNMKpw",
       "https://www.youtube.com/embed/e-mktlAtSfE",
       "https://www.youtube.com/embed/DKq92sS5ly0",
-      "https://www.youtube.com/embed/fi31JWUXuKM"
+      "https://www.youtube.com/embed/fi31JWUXuKM",
     ];
     let current=0;
     function nextVideo(){ playClick(); current=(current+1)%videos.length; updateVideo(); }
@@ -356,3 +336,4 @@
   </script>
 </body>
 </html>
+
