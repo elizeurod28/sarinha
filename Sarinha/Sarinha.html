@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Feliz Aniversário, Sarinha!</title>
+  <style>
+    :root{
+      --bg:#0b0f12;
+      --card:#0f1620;
+      --accent:#7c5cff;
+      --muted:#9aa6b2;
+      --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.08), transparent),
+                  radial-gradient(900px 450px at 90% 90%, rgba(0,200,250,0.02), transparent),
+                  var(--bg);
+      color:#e6eef6;
+      padding:32px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .container{
+      width:min(980px,96%);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      border-radius:18px;
+      padding:28px;
+      box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+      backdrop-filter: blur(6px);
+    }
+    header{display:flex;gap:18px;align-items:center}
+    .avatar{
+      width:92px;height:92px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);
+      background:linear-gradient(135deg,var(--accent), rgba(0,200,250,0.1));
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;font-size:22px
+    }
+    h1{margin:0;font-size:24px}
+    p.lead{margin:6px 0 0;color:var(--muted);line-height:1.5}
+
+    nav{
+      display:flex;gap:10px;margin-top:20px;
+    }
+    nav button{
+      flex:1;padding:10px;border:none;border-radius:10px;font-weight:600;cursor:pointer;
+      background:var(--glass);color:#fff;transition:background 0.3s;
+    }
+    nav button.active{
+      background:linear-gradient(90deg,var(--accent),#00c8fa);
+      color:#081018;
+    }
+
+    .tab{display:none;animation:fade 0.4s ease-in-out}
+    .tab.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+    .photo{
+      width:100%;aspect-ratio:1.2/1;overflow:hidden;border-radius:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display:flex;align-items:center;justify-content:center;
+      border:1px dashed rgba(255,255,255,0.03);
+    }
+    .photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .videos{margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:16px}
+    iframe{width:100%;height:360px;border-radius:12px;border:none}
+    .video-controls{display:flex;gap:10px;margin-top:10px}
+    .video-controls button{
+      padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:600;
+      background:linear-gradient(90deg,var(--accent), #00c8fa);color:#081018;
+    }
+
+    .message{
+      margin-top:20px;
+      background:var(--glass);
+      border-radius:12px;
+      padding:20px;
+      line-height:1.6;
+      color:#cfd9e6;
+      font-size:15px;
+      white-space:pre-line;
+    }
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+
+    @media (max-width:720px){
+      .gallery{grid-template-columns:repeat(2,1fr)}
+      header{flex-direction:column;align-items:flex-start}
+      iframe{height:240px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="avatar">S♡</div>
+      <div>
+        <h1>Feliz Aniversário, <strong>Sarinha</strong>!</h1>
+        <p class="lead">
+          Hoje é o seu dia, e eu só quero te lembrar o quanto você é luz.  
+          Cada riso seu deixa o mundo mais bonito — e o meu coração, mais leve.
+        </p>
+      </div>
+    </header>
+
+    <nav>
+      <button class="active" onclick="showTab('mensagem', this)">💌 Mensagem</button>
+      <button onclick="showTab('fotos', this)">📸 Fotos</button>
+      <button onclick="showTab('videos', this)">🎬 Vídeos</button>
+    </nav>
+
+    <div id="mensagem" class="tab active">
+      <div class="message">
+        <p>
+          Ei, Sarinha 💜  
+          Hoje é o seu dia, e eu não podia deixar passar sem te dizer o quanto você é especial pra mim.
+
+          A verdade é que, você é muito importante pra mim, de uma forma que você não entenderia.  
+          Amo sua alma, amo você, amo seu jeito. Que Deus abençoe muito você e te dê muitos anos de vida.
+          Que você realize todos os seus sonhos. Continue sendo essa garotinha esforçada, guerreira e de tão alto astral que você é.
+          Eu quero ficar sempre ao seu lado, não quero trocar sua presença por nada.
+          E não esqueça que tem muita gente que te ama, inclusive eu :)  
+          Porque ver você feliz é um dos meus jeitos preferidos de sorrir também.
+          Que esse mais um ano de vida seu venha com: paz, amor, sucesso e muita risada sincera.  
+          Você merece o mundo inteiro, Sarinha. 🌎💫  
+
+          — Com carinho,  
+          alguém que te admira de verdade. 💜
+        </p>
+      </div>
+    </div>
+
+    <div id="fotos" class="tab">
+      <div class="message">
+        <p>
+          Essas são algumas das nossas lembranças...  
+          Cada foto é um pedacinho das histórias que vivemos, das conversas longas,  
+          dos momentos simples que se tornaram inesquecíveis.
+        </p>
+        <p>
+          Que a vida te devolva tudo em dobro, Sarinha.  
+          O carinho, a alegria, e esse jeitinho doce que só você tem. 💜
+        </p>
+      </div>
+
+      <div class="gallery">
+        <div class="photo"><img src="https://i.ibb.co/RpSmSTdL/webcam-toy-photo-20250725195154.jpg" alt="Foto 1"></div>
+        <div class="photo"><img src="https://i.ibb.co/9kSncSwq/webcam-toy-photo-20250725202020.jpg" alt="Foto 2"></div>
+        <div class="photo"><img src="https://i.ibb.co/7xHjgLM8/webcam-toy-photo-20250725195320.jpg" alt="Foto 3"></div>
+        <div class="photo"><img src="https://i.ibb.co/gLy9RHh1/webcam-toy-photo-20250725201859.jpg" alt="Foto 4"></div>
+        <div class="photo"><img src="https://i.ibb.co/5C0qTtQ/webcam-toy-photo-20250825190715.jpg" alt="Foto 5"></div>
+        <div class="photo"><img src="https://i.ibb.co/fVZ33GGS/webcam-toy-photo-20250825190214.jpg" alt="Foto 6"></div>
+      </div>
+    </div>
+
+    <div id="videos" class="tab">
+      <div class="message">
+        <p>
+          Aqui vão alguns vídeos que me fazem lembrar de você,  
+          ou simplesmente me fizeram sorrir pensando em nós.  
+          Que venham muitos mais momentos assim — leves, bobos e felizes.
+        </p>
+      </div>
+
+      <div class="videos">
+        <iframe id="videoFrame" src="https://www.youtube.com/embed/slBo50Wh_I8" allowfullscreen></iframe>
+        <div class="video-controls">
+          <button onclick="prevVideo()">◀ Anterior</button>
+          <button onclick="nextVideo()">Próximo ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div>Feito com carinho — pra Sarinha 💜</div>
+      <div>Com amor, seu amigo ✨</div>
+    </footer>
+  </div>
+
+  <script>
+    const videos = [
+      "https://www.youtube.com/embed/slBo50Wh_I8",
+      "https://www.youtube.com/embed/xWrGRdSqBRE",
+      "https://www.youtube.com/embed/A8G0etDXj4M"
+    ];
+    let current = 0;
+
+    function nextVideo(){
+      current = (current + 1) % videos.length;
+      updateVideo();
+    }
+    function prevVideo(){
+      current = (current - 1 + videos.length) % videos.length;
+      updateVideo();
+    }
+    function updateVideo(){
+      const frame = document.getElementById('videoFrame');
+      frame.src = videos[current];
+    }
+
+    function showTab(tabId, btn){
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>
