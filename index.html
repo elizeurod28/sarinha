@@ -7,48 +7,52 @@
   <style>
     :root{
       --bg:#0b0f12;
-      --card:#0f1620;
       --accent:#7c5cff;
       --muted:#9aa6b2;
       --glass: rgba(255,255,255,0.03);
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
+    html,body{
       margin:0;
+      padding:0;
+      height:100%;
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       background: radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.08), transparent),
                   radial-gradient(900px 450px at 90% 90%, rgba(0,200,250,0.02), transparent),
                   var(--bg);
       color:#e6eef6;
-      padding:32px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
-      overflow-y:auto; /* ✅ permite rolagem no celular */
+      overflow-x:hidden;
+      overflow-y:auto; /* ✅ rolagem total */
+      scroll-behavior:smooth;
     }
+
     .container{
-      width:min(980px,96%);
+      max-width:980px;
+      margin:40px auto;
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border:1px solid rgba(255,255,255,0.04);
       border-radius:18px;
       padding:28px;
-      box-shadow: 0 6px 30px rgba(2,6,23,0.6);
-      backdrop-filter: blur(6px);
+      box-shadow:0 6px 30px rgba(2,6,23,0.6);
+      backdrop-filter:blur(6px);
     }
-    header{display:flex;gap:18px;align-items:center}
+
+    header{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
     .avatar{
-      width:92px;height:92px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);
+      width:92px;height:92px;border-radius:14px;overflow:hidden;
+      border:1px solid rgba(255,255,255,0.06);
       background:linear-gradient(135deg,var(--accent), rgba(0,200,250,0.1));
       display:flex;align-items:center;justify-content:center;
-      font-weight:700;font-size:22px
+      font-weight:700;font-size:22px;
     }
+
     h1{margin:0;font-size:24px}
     p.lead{margin:6px 0 0;color:var(--muted);line-height:1.5}
 
     nav{
-      display:flex;gap:10px;margin-top:20px;
+      display:flex;
+      gap:10px;
+      margin-top:20px;
       flex-wrap:wrap;
     }
     nav button{
@@ -60,33 +64,16 @@
       cursor:pointer;
       background:var(--glass);
       color:#fff;
-      transition:background 0.3s;
+      transition:all .3s;
     }
     nav button.active{
       background:linear-gradient(90deg,var(--accent),#00c8fa);
       color:#081018;
     }
 
-    .tab{display:none;animation:fade 0.4s ease-in-out}
+    .tab{display:none;animation:fade .4s ease-in-out}
     .tab.active{display:block}
     @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
-    .photo{
-      width:100%;aspect-ratio:1.2/1;overflow:hidden;border-radius:10px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      display:flex;align-items:center;justify-content:center;
-      border:1px dashed rgba(255,255,255,0.03);
-    }
-    .photo img{width:100%;height:100%;object-fit:cover;display:block}
-
-    .videos{margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:16px}
-    iframe{width:100%;height:360px;border-radius:12px;border:none}
-    .video-controls{display:flex;gap:10px;margin-top:10px}
-    .video-controls button{
-      padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:600;
-      background:linear-gradient(90deg,var(--accent), #00c8fa);color:#081018;
-    }
 
     .message{
       margin-top:20px;
@@ -99,13 +86,48 @@
       white-space:pre-line;
     }
 
-    footer{margin-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+      gap:10px;
+      margin-top:18px;
+    }
+    .photo{
+      aspect-ratio:1/1;
+      overflow:hidden;
+      border-radius:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px dashed rgba(255,255,255,0.03);
+    }
+    .photo img{width:100%;height:100%;object-fit:cover}
+
+    .videos{margin-top:18px;display:flex;flex-direction:column;align-items:center;gap:16px}
+    iframe{width:100%;max-width:100%;height:360px;border-radius:12px;border:none}
+    .video-controls{display:flex;gap:10px;margin-top:10px}
+    .video-controls button{
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+      background:linear-gradient(90deg,var(--accent), #00c8fa);
+      color:#081018;
+    }
+
+    footer{
+      margin-top:30px;
+      color:var(--muted);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:10px;
+    }
 
     @media (max-width:720px){
-      .gallery{grid-template-columns:repeat(2,1fr)}
-      header{flex-direction:column;align-items:flex-start}
       iframe{height:240px}
-      nav button{flex:1 1 100%;}
+      nav button{flex:1 1 100%}
+      .container{margin:20px 10px}
     }
   </style>
 </head>
@@ -205,8 +227,7 @@
       "https://www.youtube.com/embed/Xr7kkxNMKpw",
       "https://www.youtube.com/embed/e-mktlAtSfE",
       "https://www.youtube.com/embed/DKq92sS5ly0",
-      "https://www.youtube.com/embed/fi31JWUXuKM",       
-
+      "https://www.youtube.com/embed/fi31JWUXuKM"
     ];
     let current = 0;
 
@@ -219,8 +240,7 @@
       updateVideo();
     }
     function updateVideo(){
-      const frame = document.getElementById('videoFrame');
-      frame.src = videos[current];
+      document.getElementById('videoFrame').src = videos[current];
     }
 
     function showTab(tabId, btn){
@@ -228,6 +248,7 @@
       document.getElementById(tabId).classList.add('active');
       document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: "smooth" }); // 🔥 sobe pro topo ao trocar de aba
     }
   </script>
 </body>
