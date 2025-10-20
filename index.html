@@ -21,7 +21,6 @@
       color:#e6eef6;
       overflow-x:hidden;
       overflow-y:auto;
-      transition: background 1s ease;
     }
 
     /* ---- LOGIN ---- */
@@ -32,12 +31,7 @@
       justify-content:center;
       height:100vh;
       text-align:center;
-      opacity:1;
-      transition:opacity 0.8s ease;
-    }
-    .login-container.fade-out{
-      opacity:0;
-      pointer-events:none;
+      transition:opacity 0.3s ease;
     }
 
     .login-box{
@@ -46,13 +40,7 @@
       border-radius:16px;
       box-shadow:0 6px 30px rgba(2,6,23,0.6);
       width:300px;
-      transition:transform 0.5s ease, opacity 0.5s ease;
     }
-    .login-box.fade-in{
-      transform:translateY(0);
-      opacity:1;
-    }
-
     .login-box h2{margin-bottom:20px;color:#fff}
     .login-box input{
       width:100%;
@@ -81,7 +69,6 @@
     /* ---- SITE PRINCIPAL ---- */
     .container{
       display:none;
-      opacity:0;
       max-width:980px;
       margin:40px auto;
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
@@ -90,9 +77,7 @@
       padding:28px;
       box-shadow:0 6px 30px rgba(2,6,23,0.6);
       backdrop-filter:blur(6px);
-      transition:opacity 1s ease;
     }
-    .container.fade-in{display:block;opacity:1;}
 
     header{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
     .avatar{
@@ -191,6 +176,9 @@
 </head>
 <body>
 
+  <!-- Som de clique -->
+  <audio id="clickSound" src="https://assets.mixkit.co/sfx/download/mixkit-select-click-1109.wav" preload="auto"></audio>
+
   <!-- LOGIN -->
   <div class="login-container" id="loginPage">
     <div class="login-box">
@@ -213,13 +201,13 @@
           Cada riso seu deixa o mundo mais bonito — e o meu coração, mais leve.
         </p>
       </div>
-      <button class="logout-btn" onclick="logout()">Sair</button>
+      <button class="logout-btn" onclick="playClick();logout()">Sair</button>
     </header>
 
     <nav>
-      <button class="active" onclick="showTab('mensagem', this)">💌 Mensagem</button>
-      <button onclick="showTab('fotos', this)">📸 Fotos</button>
-      <button onclick="showTab('videos', this)">🎬 Vídeos</button>
+      <button class="active" onclick="playClick();showTab('mensagem', this)">💌 Mensagem</button>
+      <button onclick="playClick();showTab('fotos', this)">📸 Fotos</button>
+      <button onclick="playClick();showTab('videos', this)">🎬 Vídeos</button>
     </nav>
 
     <div id="mensagem" class="tab active">
@@ -258,8 +246,8 @@
       <div class="videos">
         <iframe id="videoFrame" src="https://www.youtube.com/embed/slBo50Wh_I8" allowfullscreen></iframe>
         <div class="video-controls">
-          <button onclick="prevVideo()">◀ Anterior</button>
-          <button onclick="nextVideo()">Próximo ▶</button>
+          <button onclick="playClick();prevVideo()">◀ Anterior</button>
+          <button onclick="playClick();nextVideo()">Próximo ▶</button>
         </div>
       </div>
     </div>
@@ -274,22 +262,22 @@
     const EMAIL = "sarinha@gmail.com";
     const PASSWORD = "19102008";
 
+    const clickSound = document.getElementById("clickSound");
+    function playClick(){
+      clickSound.currentTime = 0;
+      clickSound.play();
+    }
+
     function login(){
+      playClick();
       const email = document.getElementById("email").value;
       const pass = document.getElementById("password").value;
       const error = document.getElementById("errorMsg");
 
       if(email === EMAIL && pass === PASSWORD){
         error.textContent = "";
-        const loginPage = document.getElementById("loginPage");
-        const mainPage = document.getElementById("mainPage");
-
-        loginPage.classList.add("fade-out");
-        setTimeout(()=>{
-          loginPage.style.display="none";
-          mainPage.classList.add("fade-in");
-        },800);
-
+        document.getElementById("loginPage").style.display="none";
+        document.getElementById("mainPage").style.display="block";
         localStorage.setItem("logged","true");
       } else {
         error.textContent = "E-mail ou senha incorretos 💔";
@@ -298,22 +286,14 @@
 
     function logout(){
       localStorage.removeItem("logged");
-      const loginPage = document.getElementById("loginPage");
-      const mainPage = document.getElementById("mainPage");
-      mainPage.classList.remove("fade-in");
-      setTimeout(()=>{
-        mainPage.style.display="none";
-        loginPage.classList.remove("fade-out");
-        loginPage.style.display="flex";
-      },500);
+      document.getElementById("mainPage").style.display="none";
+      document.getElementById("loginPage").style.display="flex";
     }
 
     window.onload = ()=>{
       if(localStorage.getItem("logged")==="true"){
         document.getElementById("loginPage").style.display="none";
-        const mainPage = document.getElementById("mainPage");
-        mainPage.style.display="block";
-        setTimeout(()=>mainPage.classList.add("fade-in"),100);
+        document.getElementById("mainPage").style.display="block";
       }
     }
 
