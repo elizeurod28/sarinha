@@ -21,6 +21,7 @@
       color:#e6eef6;
       overflow-x:hidden;
       overflow-y:auto;
+      transition: background 1s ease;
     }
 
     /* ---- LOGIN ---- */
@@ -31,14 +32,27 @@
       justify-content:center;
       height:100vh;
       text-align:center;
+      opacity:1;
+      transition:opacity 0.8s ease;
     }
+    .login-container.fade-out{
+      opacity:0;
+      pointer-events:none;
+    }
+
     .login-box{
       background:var(--glass);
       padding:30px;
       border-radius:16px;
       box-shadow:0 6px 30px rgba(2,6,23,0.6);
       width:300px;
+      transition:transform 0.5s ease, opacity 0.5s ease;
     }
+    .login-box.fade-in{
+      transform:translateY(0);
+      opacity:1;
+    }
+
     .login-box h2{margin-bottom:20px;color:#fff}
     .login-box input{
       width:100%;
@@ -67,6 +81,7 @@
     /* ---- SITE PRINCIPAL ---- */
     .container{
       display:none;
+      opacity:0;
       max-width:980px;
       margin:40px auto;
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
@@ -75,7 +90,9 @@
       padding:28px;
       box-shadow:0 6px 30px rgba(2,6,23,0.6);
       backdrop-filter:blur(6px);
+      transition:opacity 1s ease;
     }
+    .container.fade-in{display:block;opacity:1;}
 
     header{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
     .avatar{
@@ -89,9 +106,7 @@
     h1{margin:0;font-size:24px}
     p.lead{margin:6px 0 0;color:var(--muted);line-height:1.5}
 
-    nav{
-      display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;
-    }
+    nav{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
     nav button{
       flex:1 1 30%;
       padding:10px;
@@ -121,7 +136,7 @@
     }
     .logout-btn:hover{background:rgba(255,255,255,0.15)}
 
-    .tab{display:none;animation:fade .4s ease-in-out}
+    .tab{display:none;animation:fade .5s ease-in-out}
     .tab.active{display:block}
     @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
@@ -265,8 +280,16 @@
       const error = document.getElementById("errorMsg");
 
       if(email === EMAIL && pass === PASSWORD){
-        document.getElementById("loginPage").style.display="none";
-        document.getElementById("mainPage").style.display="block";
+        error.textContent = "";
+        const loginPage = document.getElementById("loginPage");
+        const mainPage = document.getElementById("mainPage");
+
+        loginPage.classList.add("fade-out");
+        setTimeout(()=>{
+          loginPage.style.display="none";
+          mainPage.classList.add("fade-in");
+        },800);
+
         localStorage.setItem("logged","true");
       } else {
         error.textContent = "E-mail ou senha incorretos 💔";
@@ -275,15 +298,22 @@
 
     function logout(){
       localStorage.removeItem("logged");
-      document.getElementById("mainPage").style.display="none";
-      document.getElementById("loginPage").style.display="flex";
+      const loginPage = document.getElementById("loginPage");
+      const mainPage = document.getElementById("mainPage");
+      mainPage.classList.remove("fade-in");
+      setTimeout(()=>{
+        mainPage.style.display="none";
+        loginPage.classList.remove("fade-out");
+        loginPage.style.display="flex";
+      },500);
     }
 
-    // manter logado
     window.onload = ()=>{
       if(localStorage.getItem("logged")==="true"){
         document.getElementById("loginPage").style.display="none";
-        document.getElementById("mainPage").style.display="block";
+        const mainPage = document.getElementById("mainPage");
+        mainPage.style.display="block";
+        setTimeout(()=>mainPage.classList.add("fade-in"),100);
       }
     }
 
@@ -308,4 +338,3 @@
   </script>
 </body>
 </html>
-
