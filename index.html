@@ -31,7 +31,6 @@
       justify-content:center;
       height:100vh;
       text-align:center;
-      transition:opacity 0.3s ease;
     }
 
     .login-box{
@@ -121,9 +120,8 @@
     }
     .logout-btn:hover{background:rgba(255,255,255,0.15)}
 
-    .tab{display:none;animation:fade .5s ease-in-out}
+    .tab{display:none;}
     .tab.active{display:block}
-    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
     .message{
       margin-top:20px;
@@ -278,20 +276,20 @@
         error.textContent = "";
         document.getElementById("loginPage").style.display="none";
         document.getElementById("mainPage").style.display="block";
-        localStorage.setItem("logged","true");
+        sessionStorage.setItem("logged","true"); // 🔒 só até fechar o navegador
       } else {
         error.textContent = "E-mail ou senha incorretos 💔";
       }
     }
 
     function logout(){
-      localStorage.removeItem("logged");
+      sessionStorage.removeItem("logged");
       document.getElementById("mainPage").style.display="none";
       document.getElementById("loginPage").style.display="flex";
     }
 
     window.onload = ()=>{
-      if(localStorage.getItem("logged")==="true"){
+      if(sessionStorage.getItem("logged")==="true"){
         document.getElementById("loginPage").style.display="none";
         document.getElementById("mainPage").style.display="block";
       }
@@ -302,11 +300,10 @@
       "https://www.youtube.com/embed/xWrGRdSqBRE",
       "https://www.youtube.com/embed/A8G0etDXj4M",
       "https://www.youtube.com/embed/2MwMiUOdO8I",
-      "https://www.youtube.com/shorts/Xr7kkxNMKpw",
-      "https://www.youtube.com/shorts/e-mktlAtSfE",
-      "https://www.youtube.com/shorts/DKq92sS5ly0",
-      "https://www.youtube.com/shorts/fi31JWUXuKM",
-
+      "https://www.youtube.com/embed/Xr7kkxNMKpw",
+      "https://www.youtube.com/embed/e-mktlAtSfE",
+      "https://www.youtube.com/embed/DKq92sS5ly0",
+      "https://www.youtube.com/embed/fi31JWUXuKM"
     ];
     let current = 0;
 
@@ -324,4 +321,3 @@
   </script>
 </body>
 </html>
-
