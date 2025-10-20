@@ -23,15 +23,13 @@
       overflow-y:auto;
     }
 
-    /* --- FADE IN --- */
+    /* Fade-in */
     .fade {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.8s ease;
     }
     .fade.show {
       opacity: 1;
-      transform: translateY(0);
     }
 
     .login-container{
@@ -128,8 +126,8 @@
     }
     .logout-btn:hover{background:rgba(255,255,255,0.15)}
 
-    .tab{display:none;opacity:0;transition:opacity 0.5s ease;}
-    .tab.active{display:block;opacity:1;}
+    .tab{display:none;}
+    .tab.active{display:block}
 
     .message{
       margin-top:20px;
@@ -198,7 +196,7 @@
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
   <div class="login-container fade" id="loginPage">
-    <div class="login-box fade">
+    <div class="login-box">
       <h2>Bem-vinda, Sarinha 💜</h2>
       <input type="email" id="email" placeholder="E-mail">
       <input type="password" id="password" placeholder="Senha">
@@ -296,17 +294,13 @@
       const email=document.getElementById("email").value;
       const pass=document.getElementById("password").value;
       const error=document.getElementById("errorMsg");
-      const loginPage=document.getElementById("loginPage");
-      const mainPage=document.getElementById("mainPage");
-
       if(email===EMAIL && pass===PASSWORD){
         error.textContent="";
-        loginPage.classList.remove("show");
-        setTimeout(()=>{
-          loginPage.style.display="none";
-          mainPage.style.display="block";
-          setTimeout(()=> mainPage.classList.add("show"),50);
-        },300);
+        const loginPage = document.getElementById("loginPage");
+        const mainPage = document.getElementById("mainPage");
+        loginPage.style.display="none";
+        mainPage.style.display="block";
+        mainPage.classList.add("show");
         sessionStorage.setItem("logged","true");
       } else {
         error.textContent="E-mail ou senha incorretos 💔";
@@ -316,28 +310,25 @@
     function logout(){
       playClick();
       sessionStorage.removeItem("logged");
-      const loginPage=document.getElementById("loginPage");
-      const mainPage=document.getElementById("mainPage");
-      mainPage.classList.remove("show");
-      setTimeout(()=>{
-        mainPage.style.display="none";
-        loginPage.style.display="flex";
-        setTimeout(()=> loginPage.classList.add("show"),50);
-      },300);
+      const loginPage = document.getElementById("loginPage");
+      const mainPage = document.getElementById("mainPage");
+      mainPage.style.display="none";
+      loginPage.style.display="flex";
+      loginPage.classList.add("show");
     }
 
-    window.onload=()=>{
-      const loginPage=document.getElementById("loginPage");
-      const mainPage=document.getElementById("mainPage");
-      if(sessionStorage.getItem("logged")==="true"){
-        loginPage.style.display="none";
-        mainPage.style.display="block";
-        setTimeout(()=> mainPage.classList.add("show"),50);
+    window.onload = () => {
+      const loginPage = document.getElementById("loginPage");
+      const mainPage = document.getElementById("mainPage");
+      if(sessionStorage.getItem("logged") === "true") {
+        loginPage.style.display = "none";
+        mainPage.style.display = "block";
+        mainPage.classList.add("show");
       } else {
-        loginPage.style.display="flex";
-        setTimeout(()=> loginPage.classList.add("show"),50);
+        loginPage.style.display = "flex";
+        loginPage.classList.add("show");
       }
-    }
+    };
 
     const videos=[
       "https://www.youtube.com/embed/slBo50Wh_I8",
@@ -347,7 +338,7 @@
       "https://www.youtube.com/embed/Xr7kkxNMKpw",
       "https://www.youtube.com/embed/e-mktlAtSfE",
       "https://www.youtube.com/embed/DKq92sS5ly0",
-      "https://www.youtube.com/embed/fi31JWUXuKM",
+      "https://www.youtube.com/embed/fi31JWUXuKM"
     ];
     let current=0;
     function nextVideo(){ playClick(); current=(current+1)%videos.length; updateVideo(); }
