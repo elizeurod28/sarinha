@@ -206,10 +206,10 @@
     </header>
 
     <nav>
-      <button class="active" onclick="playClick();showTab('mensagem', this)">💌 Mensagem</button>
-      <button onclick="playClick();showTab('regras', this)">⭐Regras Fofas</button>
-      <button onclick="playClick();showTab('fotos', this)">📸 Fotos</button>
-      <button onclick="playClick();showTab('videos', this)">🎬 Vídeos</button>
+      <button class="active" onclick="showTab('mensagem', this)">💌 Mensagem</button>
+      <button onclick="showTab('regras', this)">⭐Regras Fofas</button>
+      <button onclick="showTab('fotos', this)">📸 Fotos</button>
+      <button onclick="showTab('videos', this)">🎬 Vídeos</button>
     </nav>
 
     <div id="mensagem" class="tab active">
@@ -252,8 +252,8 @@
       <div class="videos">
         <iframe id="videoFrame" src="https://www.youtube.com/embed/slBo50Wh_I8" allowfullscreen></iframe>
         <div class="video-controls">
-          <button onclick="playClick();prevVideo()">◀ Anterior</button>
-          <button onclick="playClick();nextVideo()">Próximo ▶</button>
+          <button onclick="prevVideo()">◀ Anterior</button>
+          <button onclick="nextVideo()">Próximo ▶</button>
         </div>
       </div>
     </div>
@@ -269,7 +269,15 @@
     const PASSWORD = "19102008";
 
     const clickSound = document.getElementById("clickSound");
-    function playClick(){clickSound.currentTime=0;clickSound.play();}
+    let soundEnabled = false;
+    document.addEventListener("click", () => { soundEnabled = true; }, { once: true });
+
+    function playClick() {
+      if (soundEnabled) {
+        clickSound.currentTime = 0;
+        clickSound.play().catch(() => {});
+      }
+    }
 
     function login(){
       playClick();
@@ -287,6 +295,7 @@
     }
 
     function logout(){
+      playClick();
       sessionStorage.removeItem("logged");
       document.getElementById("mainPage").style.display="none";
       document.getElementById("loginPage").style.display="flex";
@@ -306,11 +315,12 @@
       "https://www.youtube.com/embed/2MwMiUOdO8I"
     ];
     let current=0;
-    function nextVideo(){current=(current+1)%videos.length;updateVideo();}
-    function prevVideo(){current=(current-1+videos.length)%videos.length;updateVideo();}
-    function updateVideo(){document.getElementById('videoFrame').src=videos[current];}
+    function nextVideo(){ playClick(); current=(current+1)%videos.length; updateVideo(); }
+    function prevVideo(){ playClick(); current=(current-1+videos.length)%videos.length; updateVideo(); }
+    function updateVideo(){ document.getElementById('videoFrame').src=videos[current]; }
 
     function showTab(tabId,btn){
+      playClick();
       document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
       document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
@@ -320,6 +330,3 @@
   </script>
 </body>
 </html>
-
-
-
