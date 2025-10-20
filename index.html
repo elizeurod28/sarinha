@@ -183,7 +183,8 @@
 </head>
 <body>
 
-  <audio id="clickSound" src="https://assets.mixkit.co/sfx/download/mixkit-select-click-1109.wav" preload="auto"></audio>
+  <!-- Som de click local -->
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
   <div class="login-container" id="loginPage">
     <div class="login-box">
@@ -206,10 +207,10 @@
     </header>
 
     <nav>
-      <button class="active" onclick="showTab('mensagem', this)">💌 Mensagem</button>
-      <button onclick="showTab('regras', this)">⭐Regras Fofas</button>
-      <button onclick="showTab('fotos', this)">📸 Fotos</button>
-      <button onclick="showTab('videos', this)">🎬 Vídeos</button>
+      <button class="active" onclick="playClick();showTab('mensagem', this)">💌 Mensagem</button>
+      <button onclick="playClick();showTab('regras', this)">⭐Regras Fofas</button>
+      <button onclick="playClick();showTab('fotos', this)">📸 Fotos</button>
+      <button onclick="playClick();showTab('videos', this)">🎬 Vídeos</button>
     </nav>
 
     <div id="mensagem" class="tab active">
@@ -252,8 +253,8 @@
       <div class="videos">
         <iframe id="videoFrame" src="https://www.youtube.com/embed/slBo50Wh_I8" allowfullscreen></iframe>
         <div class="video-controls">
-          <button onclick="prevVideo()">◀ Anterior</button>
-          <button onclick="nextVideo()">Próximo ▶</button>
+          <button onclick="playClick();prevVideo()">◀ Anterior</button>
+          <button onclick="playClick();nextVideo()">Próximo ▶</button>
         </div>
       </div>
     </div>
@@ -268,6 +269,7 @@
     const EMAIL = "sarinha@gmail.com";
     const PASSWORD = "19102008";
 
+    // Som de click local
     const clickSound = document.getElementById("clickSound");
     let soundEnabled = false;
     document.addEventListener("click", () => { soundEnabled = true; }, { once: true });
